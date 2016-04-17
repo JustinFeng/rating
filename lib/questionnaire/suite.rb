@@ -11,7 +11,12 @@ module Rating
     end
 
     def check answer
-      @questions.zip(answer[@range]).map { |q, a| q.check(a) }.sum
+      scores = @questions.zip(answer[@range]).map { |q, a| q.check(a) }
+      scores << scores.sum
+    end
+
+    def header
+      Range.new(1, @questions.size).to_a.join(",") + ",Sum"
     end
   end
 end
